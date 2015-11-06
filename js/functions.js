@@ -32,7 +32,7 @@ function sendMessageOnEnter(event) {
 
 function getState(callback) {
     $.ajax({
-        url: 'https://bbr2015.azurewebsites.net/api/PosisjonsService',
+        url: 'https://bbr2015.azurewebsites.net/api/GameStateFeed',
         contentType: 'application/json',
         method: 'GET',
         headers: createHeaders(),
