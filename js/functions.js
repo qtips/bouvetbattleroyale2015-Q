@@ -62,10 +62,8 @@ function registerPost(postKode, bruktVåpen) {
         method: 'POST',
         headers: createHeaders(),
         data: JSON.stringify({
-            registrerNyPost: {
-                "postKode": postKode,
-                "bruktVåpen": bruktVåpen
-            }
+           "postKode": postKode,
+           "bruktVåpen": bruktVåpen
         })
     });
 
