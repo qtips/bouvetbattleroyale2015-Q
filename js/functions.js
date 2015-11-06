@@ -77,10 +77,7 @@ function getMessages(seqNo) {
         url: meldingUrl,
         contentType: 'application/json',
         method: 'GET',
-        headers: {
-            LagKode: 'hvaler_kaver_rundt_hvaler',
-            DeltakerKode: $('#person').val()
-        },
+        headers: createHeaders(),
 
         success: function(data) {
             data.meldinger.forEach(function(melding) {
