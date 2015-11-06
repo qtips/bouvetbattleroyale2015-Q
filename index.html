@@ -3,36 +3,38 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src='js/functions.js'></script>
+	<script src='js/settings.js'></script>
 </head>
 <script lang="javascript">
 	
-	function getState(lagKode, deltakerKode, callback) {
-		$.ajax({
-			url: 'https://bbr2015.azurewebsites.net/api/GameStateFeed',
-			contentType: 'application/json',
-			method: 'GET',
-			headers: {
-				LagKode: lagKode,
-				DeltakerKode: deltakerKode
-			},
-			
-			success: callback
-		});
-	
-	}
-	
 	$(document).ready(function() {
-		getState('hvaler_kaver_rundt_hvaler', '41469772', function(data){
-			$('#content').append(JSON.stringify(data));
-		});
+
 	});
 </script>
 
 <body>
-	<div id="content">
+	<div>
+		<span>Velg person</span>
+		<select id="person">
+			<option value='96625909'>Gareth</option>
+			<option value='41469772'>Inge</option>
+			<option value='99787444'>Karianne</option>
+			<option value='47610324'>Qadeer</option>
+		</select>	
+	</div>
+	<div id="register">
+		<input type="text" placeholder="Tast inn kode" />
+		<button>Registrer</button>
+		<button>Registrer m/bombe</button>
+		<button>Registrer m/felle</button>	
+	</div>
+	<div id="map">
 		
 	</div>
-	
+	<div id="messages">
+		
+	</div>
 </body>
 	
 </html>
