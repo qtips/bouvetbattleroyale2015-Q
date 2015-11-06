@@ -1,5 +1,5 @@
 #meldinger {
-    width: 500px;
+    width: 100%;
     height: 300px;
     border: thin solid black;
     overflow-x: auto;
