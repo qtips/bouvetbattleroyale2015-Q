@@ -4,4 +4,5 @@
     border: thin solid black;
     overflow-x: auto;
     overflow-y: auto;
+    font-size: small;
 }
