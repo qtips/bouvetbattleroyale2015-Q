@@ -1,16 +1,28 @@
-function getPositions() {
+deltagerKode = ''
+lagKode  = ''
+
+
+function getState() {
 
 }
 
-function sendPosition(x, y) {
+function registerPost(registerNyPost) {
+
 
 }
 
-function getPosts() {
+function getMessages(seqNo) {
 
 }
 
-function registerPost() {
+function sendMessage(msg) {
 
 }
 
+function getPosition() {
+
+}
+
+function registerPosition(lon, lat) {
+
+}
