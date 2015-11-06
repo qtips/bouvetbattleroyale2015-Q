@@ -32,6 +32,7 @@
 			var crd = pos.coords;
 
 			var locations = [];
+			sendPosition(crd.latitude, crd.longitude);
 			getState(function updateMap(data){
 				var posts = data.poster;
 				for (x = 0; x < posts.length; x++) {
@@ -40,7 +41,7 @@
 				locations.push(['You!', crd.latitude, crd.longitude, 0]);
 
 				var map = new google.maps.Map(document.getElementById('map'), {
-					zoom: 17,
+					zoom: 16,
 					center: new google.maps.LatLng(crd.latitude, crd.longitude),
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				});
@@ -57,6 +58,7 @@
 					} else {
 						marker = new google.maps.Marker({
 							position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+//							label: locations[i][0],
 							map: map
 						});
 					}
@@ -88,33 +90,30 @@
 	<option value='99787444'>Karianne</option>
 	<option value='47610324'>Qadeer</option>
 </select>
-<h3>Hendelseslogg - felleskanal</h3>
-</br>
-<div id="meldinger"></div>
-<form name="hendelseslogg" action="" method="GET">
+<p>
+<div id="map" style="width: 600px; height: 400px;"></div>
+<div>
+	<h3>Registrer post: </h3>
+</div>
+<div id="register">
+	<input id='postkode' type="text" placeholder="Tast inn kode" />
+	<button onclick="register()">Registrer</button>
+	<button onclick="register('BOMBE')">Registrer m/bombe</button>
+	<button onclick="register('FELLE')">Registrer m/felle</button>
+</div>
 
+</p>
+<p>
+<h3>Hendelseslogg - felleskanal</h3>
+<div id="meldinger"></div>
+</p>
+<p>
+<form name="hendelseslogg" action="" method="GET">
 </form>
 <div>
 	<span>Melding:</span><input id="message-to-send" onkeypress="sendMessageOnEnter" type="text" /> <button onclick="doSendMessage()">Send</button>
-	
 </div>
-</br>
-</br>
-	<div>
-        <h3>Registrer post: </h3>
-	</div>
-	<div id="register">
-		<input id='postkode' type="text" placeholder="Tast inn kode" />
-		<button onclick="register()">Registrer</button>
-		<button onclick="register('BOMBE')">Registrer m/bombe</button>
-		<button onclick="register('FELLE')">Registrer m/felle</button>	
-	</div>
-
-	<div id="map" style="width: 600px; height: 400px;"></div>
-
-	<div id="messages">
-		
-	</div>
+</p>
 </body>
 	
 </html>
