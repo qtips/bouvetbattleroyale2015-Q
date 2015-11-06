@@ -10,12 +10,12 @@ function createHeaders() {
 }
 
 function register(vapen) {
-    var payload = {};
-    payload.postKode = $('#postkode').val();
+    var postKode =  $('#postkode').val();
     if(vapen) {
-       payload.bruktVåpen = vapen;
+       registerPost(postKode, vapen);
+    } else {
+        registerPost(postKode);
     }
-    registerPost(payload);
 }
 
 function getState(callback) {
