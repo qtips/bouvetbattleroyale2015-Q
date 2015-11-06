@@ -81,7 +81,7 @@ function getMessages(seqNo) {
 
         success: function(data) {
             data.meldinger.forEach(function(melding) {
-            $("#meldinger").prepend("<p> Deltaker: "+ melding.deltaker + ", melding: " + melding.melding + "</p>");
+            $("#meldinger").prepend("<p id='m'> Deltaker: "+ melding.deltaker + ", melding: " + melding.melding + "</p>");
             if (melding.sekvens > sekvensnummer) {
                 sekvensnummer = melding.sekvens;
             }
@@ -103,16 +103,13 @@ function sendMessage(msg) {
     });
 }
 
-function getPosition() {
+function getPosition(callback) {
     $.ajax({
         url: 'https://bbr2015.azurewebsites.net/api/PosisjonsService',
         contentType: 'application/json',
         method: 'GET',
         headers: createHeaders(),
-
-        success: function(data) {
-            $(document.body).replaceWith(JSON.stringify(data, null, 65));
-        }
+        success: callback
     });
 }
 
@@ -126,9 +123,6 @@ function sendPosition(latitude, longitude) {
             "latitude": latitude,
             "longitude": longitude
         }),
-        success: function(data) {
-            $(document.body).replaceWith(JSON.stringify(data, null, 65));
-        }
     });
 }
 
