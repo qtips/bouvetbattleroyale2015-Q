@@ -9,16 +9,13 @@ function createHeaders() {
     }
 }
 
-function getState() {
+function getState(callback) {
     $.ajax({
         url: 'https://bbr2015.azurewebsites.net/api/PosisjonsService',
         contentType: 'application/json',
         method: 'GET',
         headers: createHeaders(),
-
-        success: function(data) {
-            $(document.body).replaceWith(JSON.stringify(data, null, 65));
-        }
+        success: callback
     });
 }
 
