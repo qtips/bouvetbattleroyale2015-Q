@@ -10,61 +10,72 @@
 <script lang="javascript">
 	
 	$(document).ready(function() {
-		var options = {
-			enableHighAccuracy: true,
-			timeout: 5000,
-			maximumAge: 0
-		};
+		register();
 
-		function success(pos) {
-			var crd = pos.coords;
 
-			console.log('Your current position is:');
-			console.log('Latitude : ' + crd.latitude);
-			console.log('Longitude: ' + crd.longitude);
-			console.log('More or less ' + crd.accuracy + ' meters.');
-			var locations = [
+		$(document).ready(function() {
+			var options = {
+				enableHighAccuracy: true,
+				timeout: 5000,
+				maximumAge: 0
+			};
+
+			function success(pos) {
+				var crd = pos.coords;
+
+				console.log('Your current position is:');
+				console.log('Latitude : ' + crd.latitude);
+				console.log('Longitude: ' + crd.longitude);
+				console.log('More or less ' + crd.accuracy + ' meters.');
+				var locations = [
 					// TODO Put post locations in here.
 					// e.g.       ['Bondi Beach', -33.890542, 151.274856, 4],
 
-			];
+				];
 
-			var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 10,
-				center: new google.maps.LatLng(crd.latitude, crd.longitude),
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			});
-
-			var infowindow = new google.maps.InfoWindow();
-
-			var marker, i;
-
-			for (i = 0; i < locations.length; i++) {
-				marker = new google.maps.Marker({
-					position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-					map: map
+				var map = new google.maps.Map(document.getElementById('map'), {
+					zoom: 10,
+					center: new google.maps.LatLng(crd.latitude, crd.longitude),
+					mapTypeId: google.maps.MapTypeId.ROADMAP
 				});
 
-				google.maps.event.addListener(marker, 'click', (function(marker, i) {
-					return function() {
-						infowindow.setContent(locations[i][0]);
-						infowindow.open(map, marker);
-					}
-				})(marker, i));
-			}
+				var infowindow = new google.maps.InfoWindow();
 
-		};
+				var marker, i;
 
-		function error(err) {
-			console.warn('ERROR(' + err.code + '): ' + err.message);
-		};
+				for (i = 0; i < locations.length; i++) {
+					marker = new google.maps.Marker({
+						position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+						map: map
+					});
 
-		navigator.geolocation.getCurrentPosition(success, error, options);
+					google.maps.event.addListener(marker, 'click', (function(marker, i) {
+						return function() {
+							infowindow.setContent(locations[i][0]);
+							infowindow.open(map, marker);
+						}
+					})(marker, i));
+				}
+
+			};
+
+			function error(err) {
+				console.warn('ERROR(' + err.code + '): ' + err.message);
+			};
+
+			navigator.geolocation.getCurrentPosition(success, error, options);
+		});		
 	});
 </script>
 
 <body>
+<h3>Hendelseslogg - felleskanal</h3>
+<textarea readonly rows="20" cols="80" style="overflow:scroll;">
+</textarea>
+</br>
+</br>
 	<div>
+        <h3>Registrer post: </h3>
 		<span>Velg person</span>
 		<select id="person">
 			<option value='96625909'>Gareth</option>
@@ -74,10 +85,10 @@
 		</select>	
 	</div>
 	<div id="register">
-		<input type="text" placeholder="Tast inn kode" />
-		<button>Registrer</button>
-		<button>Registrer m/bombe</button>
-		<button>Registrer m/felle</button>	
+		<input id='postkode' type="text" placeholder="Tast inn kode" />
+		<button onclick="register()">Registrer</button>
+		<button onclick="register('BOMBE')">Registrer m/bombe</button>
+		<button onclick="register('FELLE')">Registrer m/felle</button>	
 	</div>
 	<div id="map" style="width: 600px; height: 400px;"></div>
 
