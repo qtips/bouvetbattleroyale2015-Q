@@ -19,18 +19,18 @@ function getState(callback) {
     });
 }
 
-function registerPost(registerNyPost) {
+function registerPost(postKode, bruktVåpen) {
 
     $.ajax({
         url: 'https://bbr2015.azurewebsites.net/api/GameService',
         contentType: 'application/json',
         method: 'POST',
-        headers: {
-            LagKode: lagKode,
-            DeltakerKode: deltagerKode
-        },
+        headers: createHeaders(),
         data: JSON.stringify({
-            registrerNyPost: registerNyPost
+            registrerNyPost: {
+                "postKode": postKode,
+                "bruktVåpen": bruktVåpen
+            }
         })
     });
 
