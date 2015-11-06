@@ -126,4 +126,76 @@ function sendPosition(latitude, longitude) {
     });
 }
 
-setInterval(function() {getMessages(0)}, 10000);
+var goldStar = {
+    path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+    fillColor: 'yellow',
+    fillOpacity: 0.3,
+    scale: 0.1,
+    strokeColor: 'gold',
+    strokeWeight: 2
+};
+
+var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+};
+
+function success(pos) {
+    var crd = pos.coords;
+
+    var locations = [];
+    sendPosition(crd.latitude, crd.longitude);
+    getState(function updateMap(data){
+        var posts = data.poster;
+        for (x = 0; x < posts.length; x++) {
+            locations.push([JSON.stringify(posts[x].poengVerdi), posts[x].latitude, posts[x].longitude, 4]);
+        }
+        locations.push(['You!', crd.latitude, crd.longitude, 0]);
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 16,
+            center: new google.maps.LatLng(crd.latitude, crd.longitude),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+        var marker, i;
+        for (i = 0; i < locations.length; i++) {
+            if (locations[i][0] == 'You!') {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    icon: goldStar,
+                    map: map
+                });
+            } else {
+                marker = new MarkerWithLabel({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map,
+                    labelContent: locations[i][0]
+
+                });
+            }
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindow.setContent(locations[i][0]);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+        }
+
+    });
+};
+
+function error(err) {
+    console.warn('ERROR(' + err.code + '): ' + err.message);
+};
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
+setInterval(function() {
+    getMessages(0)
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
+}, 10000);
