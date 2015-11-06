@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<script lang="javascript">
+	
+	function getState(lagKode, deltakerKode, callback) {
+		$.ajax({
+			url: 'https://bbr2015.azurewebsites.net/api/GameStateFeed',
+			contentType: 'application/json',
+			method: 'GET',
+			headers: {
+				LagKode: lagKode,
+				DeltakerKode: deltakerKode
+			},
+			
+			success: callback
+		});
+	
+	}
+	
+	$(document).ready(function() {
+		getState('hvaler_kaver_rundt_hvaler', '41469772', function(data){
+			$('#content').append(JSON.stringify(data));
+		});
+	});
+</script>
+
+<body>
+	<div id="content">
+		
+	</div>
+	
+</body>
+	
+</html>
