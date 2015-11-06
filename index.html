@@ -28,13 +28,12 @@
 				console.log('Longitude: ' + crd.longitude);
 				console.log('More or less ' + crd.accuracy + ' meters.');
 				var locations = [
-					// TODO Put post locations in here.
-					// e.g.       ['Bondi Beach', -33.890542, 151.274856, 4],
-
+					['You are here', crd.latitude, crd.longitude, 4],
+						// TODO Add more
 				];
 
 				var map = new google.maps.Map(document.getElementById('map'), {
-					zoom: 10,
+					zoom: 17,
 					center: new google.maps.LatLng(crd.latitude, crd.longitude),
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				});
