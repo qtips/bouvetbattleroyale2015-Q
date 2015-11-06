@@ -45,7 +45,7 @@ function sendPosition(latitude, longitude) {
             DeltakerKode: ''
         },
         data: JSON.stringify({
-            "latitude": latitude
+            "latitude": latitude,
             "longitude": longitude
         }),
         success: function(data) {
