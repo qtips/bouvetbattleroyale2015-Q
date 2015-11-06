@@ -18,6 +18,18 @@ function register(vapen) {
     }
 }
 
+function doSendMessage() {
+    var message = $('#message-to-send').val();
+    sendMessage(message);
+    $('#message-to-send').val('');
+}
+
+function sendMessageOnEnter(event) {
+    if(event.keyCode == 13) {
+        doSendMessage();
+    }   
+}
+
 function getState(callback) {
     $.ajax({
         url: 'https://bbr2015.azurewebsites.net/api/PosisjonsService',
@@ -67,20 +79,15 @@ function getMessages(seqNo) {
 }
 
 function sendMessage(msg) {
+    
     $.ajax({
         url: 'https://bbr2015.azurewebsites.net/api/Meldinger',
         contentType: 'application/json',
         method: 'POST',
-        headers: {
-            LagKode: '',
-            DeltakerKode: ''
-        },
+        headers: createHeaders(),
         data: JSON.stringify({
             "tekst": msg
-        }),
-        success: function(data) {
-            $(document.body).replaceWith(JSON.stringify(data, null, 65));
-        }
+        })
     });
 }
 
