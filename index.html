@@ -45,9 +45,7 @@
 				});
 
 				var infowindow = new google.maps.InfoWindow();
-
 				var marker, i;
-
 				for (i = 0; i < locations.length; i++) {
 					if (locations[i][0] == 'You!') {
 						marker = new google.maps.Marker({
@@ -82,6 +80,13 @@
 </script>
 
 <body>
+<span>Velg person</span>
+<select id="person">
+	<option value='96625909'>Gareth</option>
+	<option value='41469772'>Inge</option>
+	<option value='99787444'>Karianne</option>
+	<option value='47610324'>Qadeer</option>
+</select>
 <h3>Hendelseslogg - felleskanal</h3>
 </br>
 
@@ -97,13 +102,6 @@
 </br>
 	<div>
         <h3>Registrer post: </h3>
-		<span>Velg person</span>
-		<select id="person">
-			<option value='96625909'>Gareth</option>
-			<option value='41469772'>Inge</option>
-			<option value='99787444'>Karianne</option>
-			<option value='47610324'>Qadeer</option>
-		</select>	
 	</div>
 	<div id="register">
 		<input id='postkode' type="text" placeholder="Tast inn kode" />
