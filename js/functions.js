@@ -47,7 +47,7 @@ function registerPost(postKode, bruktVåpen) {
 }
 
 function getMessages(seqNo) {
-    meldingUrl = 'https://bbr2015.azurewebsites.net/api/Meldinger'
+    meldingUrl = 'https://bbr2015.azurewebsites.net/api/Meldinger';
     if (seqNo) {
         meldingUrl += '/' + seqNo
     }
