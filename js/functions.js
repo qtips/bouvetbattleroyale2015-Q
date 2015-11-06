@@ -9,6 +9,15 @@ function createHeaders() {
     }
 }
 
+function register(vapen) {
+    var payload = {};
+    payload.postKode = $('#postkode').val();
+    if(vapen) {
+       payload.bruktVåpen = vapen;
+    }
+    registerPost(payload);
+}
+
 function getState(callback) {
     $.ajax({
         url: 'https://bbr2015.azurewebsites.net/api/PosisjonsService',
@@ -25,10 +34,7 @@ function registerPost(registerNyPost) {
         url: 'https://bbr2015.azurewebsites.net/api/GameService',
         contentType: 'application/json',
         method: 'POST',
-        headers: {
-            LagKode: lagKode,
-            DeltakerKode: deltagerKode
-        },
+        headers: createHeaders(),
         data: JSON.stringify({
             registrerNyPost: registerNyPost
         })

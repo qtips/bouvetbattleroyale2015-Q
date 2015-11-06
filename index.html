@@ -9,7 +9,7 @@
 <script lang="javascript">
 	
 	$(document).ready(function() {
-
+		register();
 	});
 </script>
 
@@ -30,10 +30,10 @@
 		</select>	
 	</div>
 	<div id="register">
-		<input type="text" placeholder="Tast inn kode" />
-		<button>Registrer</button>
-		<button>Registrer m/bombe</button>
-		<button>Registrer m/felle</button>	
+		<input id='postkode' type="text" placeholder="Tast inn kode" />
+		<button onclick="register()">Registrer</button>
+		<button onclick="register('BOMBE')">Registrer m/bombe</button>
+		<button onclick="register('FELLE')">Registrer m/felle</button>	
 	</div>
 	<div id="map">
 		
