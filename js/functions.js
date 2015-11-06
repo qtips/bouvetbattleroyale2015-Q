@@ -1,3 +1,15 @@
+$(document).ready(function() {
+    $('#message-to-send').keypress(function(event){
+        
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            doSendMessage();	
+        }
+    
+    });
+});
+
+
 function getDeltakerkode() {
 	return $('#person').val();
 }
@@ -18,6 +30,7 @@ function register(vapen) {
     }
 }
 
+
 function doSendMessage() {
     var message = $('#message-to-send').val();
     sendMessage(message);
@@ -25,6 +38,7 @@ function doSendMessage() {
 }
 
 function sendMessageOnEnter(event) {
+    console.log(event.keyCode);
     if(event.keyCode == 13) {
         doSendMessage();
     }   
