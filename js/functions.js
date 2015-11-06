@@ -7,6 +7,19 @@ function getState() {
 
 function registerPost(registerNyPost) {
 
+    $.ajax({
+        url: 'https://bbr2015.azurewebsites.net/api/GameService',
+        contentType: 'application/json',
+        method: 'POST',
+        headers: {
+            LagKode: lagKode,
+            DeltakerKode: deltagerKode
+        },
+        data: JSON.stringify({
+            registrerNyPost: registerNyPost
+        })
+    });
+
 
 }
 
