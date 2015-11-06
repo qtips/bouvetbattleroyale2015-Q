@@ -1,0 +1,7 @@
+#meldinger {
+    width: 500px;
+    height: 300px;
+    border: thin solid black;
+    overflow-x: auto;
+    overflow-y: auto;
+}
