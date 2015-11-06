@@ -72,22 +72,25 @@ function registerPost(postKode, bruktVåpen) {
 
 }
 
+var sekvensnummer = 0;
 function getMessages(seqNo) {
-    meldingUrl = 'https://bbr2015.azurewebsites.net/api/Meldinger';
-    if (seqNo) {
-        meldingUrl += '/' + seqNo
-    }
+    meldingUrl = 'https://bbr2015.azurewebsites.net/api/Meldinger/' + sekvensnummer
     $.ajax({
         url: meldingUrl,
         contentType: 'application/json',
         method: 'GET',
         headers: {
-            LagKode: '',
-            DeltakerKode: ''
+            LagKode: 'hvaler_kaver_rundt_hvaler',
+            DeltakerKode: $('#person').val()
         },
 
         success: function(data) {
-            $(document.body).replaceWith(JSON.stringify(data, null, 65));
+            data.meldinger.forEach(function(melding) {
+            $("#meldinger").prepend("<p> Deltaker: "+ melding.deltaker + ", melding: " + melding.melding + "</p>");
+            if (melding.sekvens > sekvensnummer) {
+                sekvensnummer = melding.sekvens;
+            }
+            });
         }
     });
 }
@@ -133,3 +136,5 @@ function sendPosition(latitude, longitude) {
         }
     });
 }
+
+setInterval(function() {getMessages(0)}, 10000);
