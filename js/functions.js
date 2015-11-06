@@ -84,7 +84,7 @@ function getMessages(seqNo) {
 
         success: function(data) {
             data.meldinger.forEach(function(melding) {
-            $("#meldinger").prepend("<p> Deltaker: "+ melding.deltaker + ", melding: " + melding.melding + "</p>");
+            $("#meldinger").prepend("<p id='m'> Deltaker: "+ melding.deltaker + ", melding: " + melding.melding + "</p>");
             if (melding.sekvens > sekvensnummer) {
                 sekvensnummer = melding.sekvens;
             }
