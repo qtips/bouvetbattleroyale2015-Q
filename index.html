@@ -12,25 +12,22 @@
 	$(document).ready(function() {
 		register();
 
+		var options = {
+			enableHighAccuracy: true,
+			timeout: 5000,
+			maximumAge: 0
+		};
 
-		$(document).ready(function() {
-			var options = {
-				enableHighAccuracy: true,
-				timeout: 5000,
-				maximumAge: 0
-			};
+		function success(pos) {
+			var crd = pos.coords;
 
-			function success(pos) {
-				var crd = pos.coords;
-
-				console.log('Your current position is:');
-				console.log('Latitude : ' + crd.latitude);
-				console.log('Longitude: ' + crd.longitude);
-				console.log('More or less ' + crd.accuracy + ' meters.');
-				var locations = [
-					['You are here', crd.latitude, crd.longitude, 4],
-						// TODO Add more
-				];
+			var locations = [];
+			getState(function updateMap(data){
+				var posts = data.poster;
+				for (x = 0; x < posts.length; x++) {
+					locations.push([JSON.stringify(posts[x].poengVerdi), posts[x].latitude, posts[x].longitude, 4]);
+				}
+				locations.push(['You!', crd.latitude, crd.longitude, 0]);
 
 				var map = new google.maps.Map(document.getElementById('map'), {
 					zoom: 17,
@@ -56,14 +53,14 @@
 					})(marker, i));
 				}
 
-			};
+			});
+		};
 
-			function error(err) {
-				console.warn('ERROR(' + err.code + '): ' + err.message);
-			};
+		function error(err) {
+			console.warn('ERROR(' + err.code + '): ' + err.message);
+		};
 
-			navigator.geolocation.getCurrentPosition(success, error, options);
-		});		
+		navigator.geolocation.getCurrentPosition(success, error, options);
 	});
 </script>
 
