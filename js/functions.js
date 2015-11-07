@@ -7,8 +7,13 @@ $(document).ready(function() {
         }
     
     });
-
-    setDropdown('96625909')
+    
+    var deltaker = getCookie('deltaker');
+    if(!deltaker || deltaker.length == 0) {
+        setDropdown('96625909')        
+    } else {
+        setDropdown(deltaker);
+    }
 
 
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -19,6 +24,17 @@ $(document).ready(function() {
 
     }, 10000);
 });
+
+function setCookie(key, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
 
 
 function getDeltakerkode() {
@@ -49,7 +65,6 @@ function doSendMessage() {
 }
 
 function sendMessageOnEnter(event) {
-    console.log(event.keyCode);
     if(event.keyCode == 13) {
         doSendMessage();
     }   
@@ -98,7 +113,6 @@ function getMessages(seqNo) {
 
         success: function(data) {
             data.meldinger.forEach(function(melding) {
-                console.log(melding);
                 var deltaker = deltakere[melding.deltaker];
                 $("#meldinger").prepend("<p id='m'>" + (deltaker ? deltaker : 'Public') + ':' + melding.melding + "</p>");
                 if (melding.sekvens > sekvensnummer) {
@@ -317,6 +331,7 @@ function setDropdown(verdi) {
     $('#person').val(verdi);
     $('#person li').css('background-color', 'white');
     $('#'+verdi).css('background-color', 'rgb(235, 104, 41)');
+    setCookie('deltaker', verdi);
 }
 
 
