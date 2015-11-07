@@ -163,7 +163,7 @@ function updateMap(data, crd) {
     locations.push(['You!', crd.latitude, crd.longitude, 0]);
 
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
+        zoom: 17,
         center: new google.maps.LatLng(crd.latitude, crd.longitude),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
