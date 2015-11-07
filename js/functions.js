@@ -188,8 +188,19 @@ var options = {
 };
 
 
+var map;
+var markers = [];
+var infowindow = {};
 
 function updateMap(data, crd) {
+    if(!map) {
+        infowindow = new google.maps.InfoWindow();
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 17,
+            center: new google.maps.LatLng(crd.latitude, crd.longitude),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    }
     var locations = [];
     var posts = data.poster;
     for (var x = 0; x < posts.length; x++) {
@@ -199,19 +210,17 @@ function updateMap(data, crd) {
         locations.push([JSON.stringify(posts[x].poengVerdi), posts[x].latitude, posts[x].longitude, 4]);
     }
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 17,
-        center: new google.maps.LatLng(crd.latitude, crd.longitude),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
     getPosition(function members(data) {
         for (x = 0; x < data.length; x++) {
             locations.push([data[x].navn, data[x].latitude, data[x].longitude, 0]);
         }
-        var infowindow = new google.maps.InfoWindow();
-        var marker, i;
-        for (i = 0; i < locations.length; i++) {
+        for(var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        markers = [];
+        
+        for (var i = 0; i < locations.length; i++) {
+            var marker;
             if (locations[i][0] == 'Gareth Western') {
                 marker = new MarkerWithLabel({
                     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
@@ -247,7 +256,7 @@ function updateMap(data, crd) {
                     labelContent: locations[i][0],
                 });
             }
-
+            markers.push(marker);
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
                     infowindow.setContent(locations[i][0]);
@@ -263,7 +272,6 @@ function updateMap(data, crd) {
 function updateWeapons(data) {
     var harBombe = false;
     var harFelle = false;
-    //console.log(data);
     for(var vaapenIdx in data.vaapen) {
         if(data.vaapen[vaapenIdx].vaapenId == 'BOMBE') {
             harBombe = true;
@@ -300,7 +308,7 @@ function error(err) {
 function setDropdown(verdi) {
     $('#person').val(verdi);
     $('#person li').css('background-color', 'white');
-    $('#'+verdi).css('background-color', 'rgb(235, 104, 41)')
+    $('#'+verdi).css('background-color', 'rgb(235, 104, 41)');
 }
 
 
