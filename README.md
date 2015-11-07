@@ -1,3 +1,8 @@
 # bouvetbattleroyale2015-Q
 
-Awesome!
+Moses The Canon!
+
+* Karianne Leland
+* Gareth Western
+* Inge Syvertsen
+* Gadeer Ahmad
