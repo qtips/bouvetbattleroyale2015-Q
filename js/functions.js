@@ -82,8 +82,14 @@ function registerPost(postKode, bruktVåpen) {
 }
 
 var sekvensnummer = 0;
+var deltakere = {
+    'JAVA_1-1': 'Karianne',
+    'JAVA_1-2': 'Gareth',
+    'JAVA_1-3': 'Inge',
+    'JAVA_1-4': 'Qadeer'
+}
 function getMessages(seqNo) {
-    meldingUrl = 'https://bbr2015.azurewebsites.net/api/Meldinger/' + sekvensnummer
+    var meldingUrl = 'https://bbr2015.azurewebsites.net/api/Meldinger/' + sekvensnummer
     $.ajax({
         url: meldingUrl,
         contentType: 'application/json',
@@ -92,10 +98,12 @@ function getMessages(seqNo) {
 
         success: function(data) {
             data.meldinger.forEach(function(melding) {
-            $("#meldinger").prepend("<p id='m'> Melding: " + melding.melding + "</p>");
-            if (melding.sekvens > sekvensnummer) {
-                sekvensnummer = melding.sekvens;
-            }
+                console.log(melding);
+                var deltaker = deltakere[melding.deltaker];
+                $("#meldinger").prepend("<p id='m'>" + (deltaker ? deltaker : 'Public') + ':' + melding.melding + "</p>");
+                if (melding.sekvens > sekvensnummer) {
+                    sekvensnummer = melding.sekvens;
+                }
             });
         }
     });
