@@ -235,7 +235,7 @@ function error(err) {
 function setDropdown(verdi) {
     $('#person').val(verdi);
     $('#person li').css('background-color', 'white');
-    $('#'+verdi).css('background-color', 'yellow')
+    $('#'+verdi).css('background-color', 'rgb(235, 104, 41)')
 }
 
 
