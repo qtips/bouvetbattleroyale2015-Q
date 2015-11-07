@@ -122,7 +122,7 @@ function sendPosition(latitude, longitude) {
         data: JSON.stringify({
             "latitude": latitude,
             "longitude": longitude
-        }),
+        })
     });
 }
 
@@ -220,6 +220,12 @@ function success(pos) {
 function error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
 };
+
+function setDropdown(verdi) {
+    $('#person').val(verdi);
+    $('#person li').css('background-color', 'white');
+    $('#'+verdi).css('background-color', 'yellow')
+}
 
 navigator.geolocation.getCurrentPosition(success, error, options);
 
