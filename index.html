@@ -43,6 +43,13 @@
 	<span>Melding:</span><input id="message-to-send" onkeypress="sendMessageOnEnter" type="text" /> <button onclick="doSendMessage()">Send</button>
 </div>
 </p>
+<button onclick="getState(function (data) {
+    var antallPoster = 0;
+    for (var post in data.poster) {
+        if (!data.poster[post].harRegistert) {antallPoster++}
+    }
+    alert('score: '+JSON.stringify(data.score)+'\n ranking: '+JSON.stringify(data.ranking)+'\nantall poster igjen:'+antallPoster)
+})">Status!</button>
 </body>
 	
 </html>
