@@ -193,6 +193,9 @@ function updateMap(data, crd) {
     var locations = [];
     var posts = data.poster;
     for (x = 0; x < posts.length; x++) {
+        if(posts.harRegistrert) {
+            continue;
+        }
         locations.push([JSON.stringify(posts[x].poengVerdi), posts[x].latitude, posts[x].longitude, 4]);
     }
     locations.push(['You!', crd.latitude, crd.longitude, 0]);
