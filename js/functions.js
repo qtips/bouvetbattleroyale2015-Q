@@ -161,21 +161,21 @@ function sendPosition(latitude, longitude) {
 
 var gwImg = {
     url: 'img/gw.jpg',
-    scaledSize: new google.maps.Size(40, 40)
+    scaledSize: new google.maps.Size(40, 43)
 };
 
 var isImg = {
     url: 'img/is.jpg',
-    scaledSize: new google.maps.Size(40, 40)
+    scaledSize: new google.maps.Size(40, 43)
 };
 
 var klImg = {
     url: 'img/kl.jpg',
-    scaledSize: new google.maps.Size(40, 40)
+    scaledSize: new google.maps.Size(40, 43)
 };
 var qaImg = {
     url: 'img/qa.jpg',
-    scaledSize: new google.maps.Size(40, 40)
+    scaledSize: new google.maps.Size(40, 43)
 };
 
 var options = {
