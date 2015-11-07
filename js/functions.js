@@ -141,50 +141,79 @@ var options = {
     maximumAge: 0
 };
 
+
+
+function updateMap(data, crd) {
+    var locations = [];
+    var posts = data.poster;
+    for (x = 0; x < posts.length; x++) {
+        locations.push([JSON.stringify(posts[x].poengVerdi), posts[x].latitude, posts[x].longitude, 4]);
+    }
+    locations.push(['You!', crd.latitude, crd.longitude, 0]);
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: new google.maps.LatLng(crd.latitude, crd.longitude),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+    for (i = 0; i < locations.length; i++) {
+        if (locations[i][0] == 'You!') {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                icon: goldStar,
+                map: map
+            });
+        } else {
+            marker = new MarkerWithLabel({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map: map,
+                labelContent: locations[i][0]
+
+            });
+        }
+
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infowindow.setContent(locations[i][0]);
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
+    }
+}
+
+function updateWeapons(data) {
+    var harBombe = false;
+    var harFelle = false;
+    console.log(data);
+    for(var vaapenIdx in data.vaapen) {
+        if(data.vaapen[vaapenIdx].vaapenId == 'BOMBE') {
+            harBombe = true;
+        }
+        
+        if(data.vaapen[vaapenIdx].vaapenId == 'FELLE') {
+            harFelle = true;
+        }
+    }
+    
+    if(!harBombe) {
+        $('#button-bomb').hide();
+    }
+    
+    if(!harFelle) {
+        $('#button-trap').hide();
+    }
+    
+}
+
 function success(pos) {
     var crd = pos.coords;
-
-    var locations = [];
     sendPosition(crd.latitude, crd.longitude);
-    getState(function updateMap(data){
-        var posts = data.poster;
-        for (x = 0; x < posts.length; x++) {
-            locations.push([JSON.stringify(posts[x].poengVerdi), posts[x].latitude, posts[x].longitude, 4]);
-        }
-        locations.push(['You!', crd.latitude, crd.longitude, 0]);
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 16,
-            center: new google.maps.LatLng(crd.latitude, crd.longitude),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-
-        var infowindow = new google.maps.InfoWindow();
-        var marker, i;
-        for (i = 0; i < locations.length; i++) {
-            if (locations[i][0] == 'You!') {
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    icon: goldStar,
-                    map: map
-                });
-            } else {
-                marker = new MarkerWithLabel({
-                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    map: map,
-                    labelContent: locations[i][0]
-
-                });
-            }
-
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                    infowindow.setContent(locations[i][0]);
-                    infowindow.open(map, marker);
-                }
-            })(marker, i));
-        }
-
+    getState(function (data){
+        updateMap(data, crd);
+        updateWeapons(data);
     });
 };
 
