@@ -159,48 +159,23 @@ function sendPosition(latitude, longitude) {
     });
 }
 
-var goldStar = {
-    path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-    fillColor: 'yellow',
-    fillOpacity: 0.3,
-    scale: 0.1,
-    strokeColor: 'gold',
-    strokeWeight: 2
+var gwImg = {
+    url: 'img/gw.jpg',
+    scaledSize: new google.maps.Size(40, 40)
 };
 
-var redStar = {
-    path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-    fillColor: 'yellow',
-    fillOpacity: 0.3,
-    scale: 0.1,
-    strokeColor: 'red',
-    strokeWeight: 2
+var isImg = {
+    url: 'img/is.jpg',
+    scaledSize: new google.maps.Size(40, 40)
 };
 
-var greenStar = {
-    path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-    fillColor: 'yellow',
-    fillOpacity: 0.3,
-    scale: 0.1,
-    strokeColor: 'green',
-    strokeWeight: 2
+var klImg = {
+    url: 'img/kl.jpg',
+    scaledSize: new google.maps.Size(40, 40)
 };
-
-var blueStar = {
-    path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-    fillColor: 'yellow',
-    fillOpacity: 0.3,
-    scale: 0.1,
-    strokeColor: 'blue',
-    strokeWeight: 2
-};
-var blackStar = {
-    path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-    fillColor: 'yellow',
-    fillOpacity: 0.3,
-    scale: 0.1,
-    strokeColor: 'black',
-    strokeWeight: 2
+var qaImg = {
+    url: 'img/qa.jpg',
+    scaledSize: new google.maps.Size(40, 40)
 };
 
 var options = {
@@ -208,7 +183,6 @@ var options = {
     timeout: 5000,
     maximumAge: 0
 };
-
 
 var map;
 var markers = [];
@@ -248,28 +222,28 @@ function updateMap(data, crd) {
                     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
                     map: map,
                     labelContent: locations[i][0],
-                    icon: redStar
+                    icon: gwImg
                 });
             } else if (locations[i][0] == 'Qadeer Ahmad') {
                 marker = new MarkerWithLabel({
                     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
                     map: map,
                     labelContent: locations[i][0],
-                    icon: greenStar
+                    icon: qaImg
                 });
             } else if (locations[i][0] == 'Karianne Leland') {
                 marker = new MarkerWithLabel({
                     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
                     map: map,
                     labelContent: locations[i][0],
-                    icon: blueStar
+                    icon: klImg
                 });
             } else if (locations[i][0] == 'Inge Syvertsen') {
                 marker = new MarkerWithLabel({
                     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
                     map: map,
                     labelContent: locations[i][0],
-                    icon: blackStar
+                    icon: isImg
                 });
             } else {
                 marker = new MarkerWithLabel({
