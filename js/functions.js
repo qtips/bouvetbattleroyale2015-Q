@@ -157,8 +157,8 @@ var options = {
 function updateMap(data, crd) {
     var locations = [];
     var posts = data.poster;
-    for (x = 0; x < posts.length; x++) {
-        if(posts.harRegistrert) {
+    for (var x = 0; x < posts.length; x++) {
+        if(posts[x].harRegistert) {
             continue;
         }
         locations.push([JSON.stringify(posts[x].poengVerdi), posts[x].latitude, posts[x].longitude, 4]);
