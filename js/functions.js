@@ -198,7 +198,6 @@ function updateMap(data, crd) {
         }
         locations.push([JSON.stringify(posts[x].poengVerdi), posts[x].latitude, posts[x].longitude, 4]);
     }
-    locations.push(['You!', crd.latitude, crd.longitude, 0]);
 
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 17,
@@ -210,19 +209,9 @@ function updateMap(data, crd) {
         for (x = 0; x < data.length; x++) {
             locations.push([data[x].navn, data[x].latitude, data[x].longitude, 0]);
         }
-    });
-
-    var infowindow = new google.maps.InfoWindow();
-    var marker, i;
-    for (i = 0; i < locations.length; i++) {
-        if (locations[i][0] == 'You!') {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                icon: goldStar,
-                map: map
-            });
-        } else {
-            //alert(locations[i][0]);
+        var infowindow = new google.maps.InfoWindow();
+        var marker, i;
+        for (i = 0; i < locations.length; i++) {
             if (locations[i][0] == 'Gareth Western') {
                 marker = new MarkerWithLabel({
                     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
@@ -258,21 +247,23 @@ function updateMap(data, crd) {
                     labelContent: locations[i][0],
                 });
             }
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindow.setContent(locations[i][0]);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
         }
 
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                infowindow.setContent(locations[i][0]);
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
-    }
+    });
+
 }
 
 function updateWeapons(data) {
     var harBombe = false;
     var harFelle = false;
-    console.log(data);
+    //console.log(data);
     for(var vaapenIdx in data.vaapen) {
         if(data.vaapen[vaapenIdx].vaapenId == 'BOMBE') {
             harBombe = true;
