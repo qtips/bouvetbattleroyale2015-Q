@@ -7,6 +7,17 @@ $(document).ready(function() {
         }
     
     });
+
+    setDropdown('96625909')
+
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
+    setInterval(function() {
+        getMessages(0)
+        navigator.geolocation.getCurrentPosition(success, error, options);
+
+    }, 10000);
 });
 
 
@@ -227,10 +238,4 @@ function setDropdown(verdi) {
     $('#'+verdi).css('background-color', 'yellow')
 }
 
-navigator.geolocation.getCurrentPosition(success, error, options);
 
-setInterval(function() {
-    getMessages(0)
-    navigator.geolocation.getCurrentPosition(success, error, options);
-
-}, 10000);
