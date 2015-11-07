@@ -25,3 +25,11 @@ span {
     color: rgb(235, 104, 41);
 }
 
+#register input,#register button {
+    height: 50px;
+    
+}
+
+#register input {
+    width: 150px;
+}
