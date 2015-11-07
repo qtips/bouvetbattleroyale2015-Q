@@ -9,3 +9,19 @@
 #m {
     font-size: small;
 }
+
+img {
+    float:right;
+}
+
+h3 {
+    color: rgb(235, 104, 41);
+}
+
+p {
+    color: #000;
+}
+span {
+    color: rgb(235, 104, 41);
+}
+
