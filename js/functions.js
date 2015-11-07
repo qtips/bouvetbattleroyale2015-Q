@@ -146,6 +146,41 @@ var goldStar = {
     strokeWeight: 2
 };
 
+var redStar = {
+    path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+    fillColor: 'yellow',
+    fillOpacity: 0.3,
+    scale: 0.1,
+    strokeColor: 'red',
+    strokeWeight: 2
+};
+
+var greenStar = {
+    path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+    fillColor: 'yellow',
+    fillOpacity: 0.3,
+    scale: 0.1,
+    strokeColor: 'green',
+    strokeWeight: 2
+};
+
+var blueStar = {
+    path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+    fillColor: 'yellow',
+    fillOpacity: 0.3,
+    scale: 0.1,
+    strokeColor: 'blue',
+    strokeWeight: 2
+};
+var blackStar = {
+    path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+    fillColor: 'yellow',
+    fillOpacity: 0.3,
+    scale: 0.1,
+    strokeColor: 'black',
+    strokeWeight: 2
+};
+
 var options = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -163,7 +198,6 @@ function updateMap(data, crd) {
         }
         locations.push([JSON.stringify(posts[x].poengVerdi), posts[x].latitude, posts[x].longitude, 4]);
     }
-    locations.push(['You!', crd.latitude, crd.longitude, 0]);
 
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 17,
@@ -171,37 +205,65 @@ function updateMap(data, crd) {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
-    var infowindow = new google.maps.InfoWindow();
-    var marker, i;
-    for (i = 0; i < locations.length; i++) {
-        if (locations[i][0] == 'You!') {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                icon: goldStar,
-                map: map
-            });
-        } else {
-            marker = new MarkerWithLabel({
-                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                map: map,
-                labelContent: locations[i][0]
+    getPosition(function members(data) {
+        for (x = 0; x < data.length; x++) {
+            locations.push([data[x].navn, data[x].latitude, data[x].longitude, 0]);
+        }
+        var infowindow = new google.maps.InfoWindow();
+        var marker, i;
+        for (i = 0; i < locations.length; i++) {
+            if (locations[i][0] == 'Gareth Western') {
+                marker = new MarkerWithLabel({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map,
+                    labelContent: locations[i][0],
+                    icon: redStar
+                });
+            } else if (locations[i][0] == 'Qadeer Ahmad') {
+                marker = new MarkerWithLabel({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map,
+                    labelContent: locations[i][0],
+                    icon: greenStar
+                });
+            } else if (locations[i][0] == 'Karianne Leland') {
+                marker = new MarkerWithLabel({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map,
+                    labelContent: locations[i][0],
+                    icon: blueStar
+                });
+            } else if (locations[i][0] == 'Inge Syvertsen') {
+                marker = new MarkerWithLabel({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map,
+                    labelContent: locations[i][0],
+                    icon: blackStar
+                });
+            } else {
+                marker = new MarkerWithLabel({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map,
+                    labelContent: locations[i][0],
+                });
+            }
 
-            });
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindow.setContent(locations[i][0]);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
         }
 
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                infowindow.setContent(locations[i][0]);
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
-    }
+    });
+
 }
 
 function updateWeapons(data) {
     var harBombe = false;
     var harFelle = false;
-    console.log(data);
+    //console.log(data);
     for(var vaapenIdx in data.vaapen) {
         if(data.vaapen[vaapenIdx].vaapenId == 'BOMBE') {
             harBombe = true;
